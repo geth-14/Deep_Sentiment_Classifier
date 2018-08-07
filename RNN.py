@@ -34,7 +34,7 @@ def max_words(array):
 
 l = max_words(np.array(df.iloc[:, 0]))
 
-#Generate a frequency dictionary of most occurring relevant words
+#Generates a frequency dictionary of most occurring relevant attributes
 def count_frequency(array):
     count={'WORDS':'COUNTS'}
     for i in range(array.shape[0]):
@@ -44,8 +44,8 @@ def count_frequency(array):
                 count[list[j]]+=1
             else:
                 count[list[j]]=1
-    new_keys=['excellent','love','good','average','satisfactory','timely','slow','poor','bad','trash','cheap','lag','price',
-              'pathetic','fragile','mediocre','improve',]
+    new_keys=['excellent', 'love', 'good', 'average', 'satisfactory', 'timely', 'slow', 'poor', 'bad', 'trash', 'cheap', 'lag', 'price',
+              'pathetic', 'fragile', 'mediocre', 'improve']
     count_new={key:count[key] for key in count if key in new_keys}
     return count_new   
 
