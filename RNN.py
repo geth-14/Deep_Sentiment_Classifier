@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import os
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from keras.utils import to_categorical
 from keras.models import Model, Sequential
@@ -32,6 +33,28 @@ def max_words(array):
     return l
 
 l = max_words(np.array(df.iloc[:, 0]))
+
+#Generate a frequency dictionary of most occurring relevant words
+def count_frequency(array):
+    count={'WORDS':'COUNTS'}
+    for i in range(array.shape[0]):
+        list=array[i].lower().split()
+        for j in range(len(list)):
+            if list[j] in count:
+                count[list[j]]+=1
+            else:
+                count[list[j]]=1
+    new_keys=['excellent','love','good','average','satisfactory','timely','slow','poor','bad','trash','cheap','lag','price',
+              'pathetic','fragile','mediocre','improve',]
+    count_new={key:count[key] for key in count if key in new_keys}
+    return count_new   
+
+count_new=count_frequency(np.array(df.iloc[:,0]))
+
+table=pd.Series(count_new,index=count_new.keys())
+print(table)
+table.plot.bar()
+plt.xticks(rotation=-65)
 
 #Extracts word2vec and word2index from GloVe
 def load_GloVe(File):
